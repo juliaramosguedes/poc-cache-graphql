@@ -1,0 +1,18 @@
+{
+  "name": "poc-cache-decorator",
+  "version": "1.0.0",
+  "description": "poc to create cache decorator",
+  "main": "index.js",
+  "repository": "git@github.com:juliaramosguedes/poc-cache-decorator.git",
+  "author": "Julia Ramos <juliaramosguedes@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
