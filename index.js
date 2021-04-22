@@ -1,10 +1,24 @@
 const express = require('express');
-const routes = require('./routes');
+const bodyParser = require('body-parser');
+const { ApolloServer } = require('apollo-server-express');
+
+const schemaCreator = require('./schema');
+const dataSourcesCreator = require('./data-sources');
+const contextCreator = require('./context');
+const { graphqlPath, port } = require('./config');
+
+const server = new ApolloServer({
+  ...schemaCreator(),
+  dataSources: dataSourcesCreator(),
+  context: contextCreator(),
+});
 
 const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.get('/', routes.Query.getList);
+app.use(bodyParser.json({ limit: '50mb' }));
 
-app.listen('3333',() => console.log('App running on port 3333'));
+server.applyMiddleware({ app, path: graphqlPath });
+
+app.listen({ port }, () =>
+  console.log(`🚀 Server ready at http://localhost:${port}${graphqlPath}`)
+);
